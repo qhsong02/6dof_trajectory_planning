@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<robot name="simple_6dof_arm">
+
+  <!-- Base -->
+  <link name="base_link">
+    <visual>
+      <geometry><box size="0.25 0.25 0.06"/></geometry>
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+    </visual>
+  </link>
+
+  <!-- Link 1 -->
+  <link name="link1">
+    <visual>
+      <geometry><cylinder radius="0.04" length="0.25"/></geometry>
+      <origin xyz="0 0 0.125" rpy="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="joint1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <origin xyz="0 0 0.06" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14159" upper="3.14159" effort="50" velocity="2.0"/>
+  </joint>
+
+  <!-- Link 2 -->
+  <link name="link2">
+    <visual>
+      <geometry><box size="0.06 0.06 0.30"/></geometry>
+      <origin xyz="0 0 0.15" rpy="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="joint2" type="revolute">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin xyz="0 0 0.25" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.4" upper="2.4" effort="50" velocity="2.0"/>
+  </joint>
+
+  <!-- Link 3 -->
+  <link name="link3">
+    <visual>
+      <geometry><box size="0.05 0.05 0.28"/></geometry>
+      <origin xyz="0 0 0.14" rpy="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="joint3" type="revolute">
+    <parent link="link2"/>
+    <child link="link3"/>
+    <origin xyz="0 0 0.30" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.6" upper="2.6" effort="50" velocity="2.0"/>
+  </joint>
+
+  <!-- Link 4 -->
+  <link name="link4">
+    <visual>
+      <geometry><cylinder radius="0.035" length="0.20"/></geometry>
+      <origin xyz="0 0 0.10" rpy="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="joint4" type="revolute">
+    <parent link="link3"/>
+    <child link="link4"/>
+    <origin xyz="0 0 0.28" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="30" velocity="3.0"/>
+  </joint>
+
+  <!-- Link 5 -->
+  <link name="link5">
+    <visual>
+      <geometry><cylinder radius="0.03" length="0.18"/></geometry>
+      <origin xyz="0 0 0.09" rpy="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="joint5" type="revolute">
+    <parent link="link4"/>
+    <child link="link5"/>
+    <origin xyz="0 0 0.20" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.8" upper="2.8" effort="30" velocity="3.0"/>
+  </joint>
+
+  <!-- Link 6 -->
+  <link name="link6">
+    <visual>
+      <geometry><cylinder radius="0.025" length="0.12"/></geometry>
+      <origin xyz="0 0 0.06" rpy="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="joint6" type="revolute">
+    <parent link="link5"/>
+    <child link="link6"/>
+    <origin xyz="0 0 0.18" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-3.14159" upper="3.14159" effort="20" velocity="4.0"/>
+  </joint>
+
+  <!-- End-effector -->
+  <link name="ee_link">
+    <visual>
+      <geometry><sphere radius="0.03"/></geometry>
+      <origin xyz="0 0 0.03" rpy="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="ee_fixed" type="fixed">
+    <parent link="link6"/>
+    <child link="ee_link"/>
+    <origin xyz="0 0 0.12" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ros2_control: Fake/Mock hardware -->
+  <ros2_control name="SixDofMockSystem" type="system">
+    <hardware>
+      <plugin>mock_components/GenericSystem</plugin>
+    </hardware>
+
+    <joint name="joint1">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="joint2">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="joint3">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="joint4">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="joint5">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="joint6">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+</robot>
