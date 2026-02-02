@@ -1,5 +1,6 @@
 mkdir -p ~/ws_6dof/src
 cd ~/ws_6dof/src
+
 git clone https://github.com/qhsong02/6dof_trajectory_planning.git
 
 cd ~/ws_6dof
